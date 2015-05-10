@@ -38,42 +38,7 @@ class ViewController: UIViewController {
         self.view.addSubview(myLabel)
         
         
-        //０ボタン追加
-        let button = UIButton()
-        
-        //表示されるテキスト
-        button.setTitle("0", forState: .Normal)
-        
-        //テキストの色
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        
-        
-        //タップした状態の色
-        button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
-        
-        //サイズ
-        button.frame = CGRectMake(0, 0, 188, 95)
-        
-        //配置場所
-        button.layer.position = CGPoint(x: 94, y:628)
-        
-        //背景色
-        button.backgroundColor = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 0.6)
-        
-        //角丸
-        button.layer.cornerRadius = 0
-        
-        //ボーダー幅
-        button.layer.borderWidth = 1
-        
-        //ボタンをタップした時に実行するメソッドを指定
-        //button.addTarget(self, action: "tapped:", forControlEvents:.TouchUpInside)
-        
-        //viewにボタンを追加する
-        self.view.addSubview(button)
-        
-        
-        //グレーボタン18個
+        //グレーボタン19個
         let button1 = makeButton("C",x:46.8,y:248)
         let button2 = makeButton("+/-",x:140.6,y:248)
         let button3 = makeButton("%",x:234.4,y:248)
@@ -92,6 +57,7 @@ class ViewController: UIViewController {
         let button16 = makeButton("-",x:328.4,y:438)
         let button17 = makeButton("+",x:328.4,y:533)
         let button18 = makeButton("=",x:328.4,y:628)
+        let button19 = makeButton("0",x:94,y:628)
     
         self.view.addSubview(button1)
         self.view.addSubview(button2)
@@ -111,6 +77,7 @@ class ViewController: UIViewController {
         self.view.addSubview(button16)
         self.view.addSubview(button17)
         self.view.addSubview(button18)
+        self.view.addSubview(button19)
         
         //背景色オレンジ
         button14.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
@@ -118,6 +85,9 @@ class ViewController: UIViewController {
         button16.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
         button17.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
         button18.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
+        
+        //0ボタンのサイズ
+        button19.frame = CGRectMake(0, 580, 188, 95)
         
     }
 
@@ -155,28 +125,6 @@ class ViewController: UIViewController {
     
     }
     
-    func tapped(button :UIButton){
-        
-        if (button.titleLabel!.text! == "C") {
-            myLabel?.text? = ""
-        }
-            
-        else if (button.titleLabel!.text! == "+"){
-            
-            number = (myLabel!.text! as NSString).integerValue
-            
-            myLabel?.text? = ""
-            
-            NSLog("", number)
-   
-        } else {
-            
-            myLabel?.text? += button.titleLabel!.text!
-            
-        }
-        NSLog("",button.titleLabel!.text!)
-        
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
