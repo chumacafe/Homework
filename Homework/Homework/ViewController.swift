@@ -18,7 +18,6 @@ class ViewController: UIViewController {
         
         // 背景を黒色にする.
         myLabel.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
-    
         
         // コーナーの半径.
         myLabel.layer.cornerRadius = 0
@@ -29,7 +28,6 @@ class ViewController: UIViewController {
         // 文字の色を白にする.
         myLabel.textColor = UIColor.whiteColor()
         
-
         // Textを右寄せにする.
         myLabel.textAlignment = NSTextAlignment.Right
         
@@ -49,8 +47,6 @@ class ViewController: UIViewController {
         //テキストの色
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         
-        //タップした状態のテキスト
-        button.setTitle("0", forState: .Highlighted)
         
         //タップした状態の色
         button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
@@ -60,9 +56,6 @@ class ViewController: UIViewController {
         
         //配置場所
         button.layer.position = CGPoint(x: 94, y:628)
-        
-        // Textを左寄せにする.
-        myLabel.textAlignment = NSTextAlignment.Left
         
         //背景色
         button.backgroundColor = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 0.6)
@@ -80,35 +73,26 @@ class ViewController: UIViewController {
         self.view.addSubview(button)
         
         
-        //グレーボタン13個
-        let button1 = makeButton(46.8,y:248)
-        let button2 = makeButton(140.6,y:248)
-        let button3 = makeButton(234.4,y:248)
-        let button4 = makeButton(46.8,y:343)
-        let button5 = makeButton(140.6,y:343)
-        let button6 = makeButton(234.4,y:343)
-        let button7 = makeButton(46.8,y:438)
-        let button8 = makeButton(140.6,y:438)
-        let button9 = makeButton(234.4,y:438)
-        let button10 = makeButton(46.8,y:533)
-        let button11 = makeButton(140.6,y:533)
-        let button12 = makeButton(234.4,y:533)
-        let button13 = makeButton(234.4,y:628)
-        
-        button1.setTitle("C", forState: .Normal)
-        button2.setTitle("+/-", forState: .Normal)
-        button3.setTitle("%", forState: .Normal)
-        button4.setTitle("7", forState: .Normal)
-        button5.setTitle("8", forState: .Normal)
-        button6.setTitle("9", forState: .Normal)
-        button7.setTitle("4", forState: .Normal)
-        button8.setTitle("5", forState: .Normal)
-        button9.setTitle("6", forState: .Normal)
-        button10.setTitle("1", forState: .Normal)
-        button11.setTitle("2", forState: .Normal)
-        button12.setTitle("3", forState: .Normal)
-        button13.setTitle(".", forState: .Normal)
-        
+        //グレーボタン18個
+        let button1 = makeButton("C",x:46.8,y:248)
+        let button2 = makeButton("+/-",x:140.6,y:248)
+        let button3 = makeButton("%",x:234.4,y:248)
+        let button4 = makeButton("7",x:46.8,y:343)
+        let button5 = makeButton("8",x:140.6,y:343)
+        let button6 = makeButton("9",x:234.4,y:343)
+        let button7 = makeButton("4",x:46.8,y:438)
+        let button8 = makeButton("5",x:140.6,y:438)
+        let button9 = makeButton("6",x:234.4,y:438)
+        let button10 = makeButton("1",x:46.8,y:533)
+        let button11 = makeButton("2",x:140.6,y:533)
+        let button12 = makeButton("3",x:234.4,y:533)
+        let button13 = makeButton(".",x:234.4,y:628)
+        let button14 = makeButton("÷",x:328.4,y:248)
+        let button15 = makeButton("×",x:328.4,y:343)
+        let button16 = makeButton("-",x:328.4,y:438)
+        let button17 = makeButton("+",x:328.4,y:533)
+        let button18 = makeButton("=",x:328.4,y:628)
+    
         self.view.addSubview(button1)
         self.view.addSubview(button2)
         self.view.addSubview(button3)
@@ -122,22 +106,31 @@ class ViewController: UIViewController {
         self.view.addSubview(button11)
         self.view.addSubview(button12)
         self.view.addSubview(button13)
+        self.view.addSubview(button14)
+        self.view.addSubview(button15)
+        self.view.addSubview(button16)
+        self.view.addSubview(button17)
+        self.view.addSubview(button18)
+        
+        //背景色オレンジ
+        button14.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
+        button15.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
+        button16.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
+        button17.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
+        button18.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
         
     }
 
     
-    func makeButton(x: CGFloat,y:CGFloat) -> UIButton {
+    func makeButton(title:String, x: CGFloat,y:CGFloat) -> UIButton {
         
         let button = UIButton()
         
+        //表示されるテキスト
+        button.setTitle(title, forState: .Normal)
+        
         //テキストの色
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        
-        //タップした状態のテキスト
-        button.setTitle("メロン肩！", forState: .Highlighted)
-        
-        //タップした状態の色
-        button.setTitleColor(UIColor.blackColor(), forState: .Highlighted)
         
         //サイズ
         button.frame = CGRectMake(0, 0, 94, 95)
@@ -159,65 +152,32 @@ class ViewController: UIViewController {
         
         //viewにボタンを追加する
         return button
+    
+    }
+    
+    func tapped(button :UIButton){
         
-        //オレンジボタン5個
-        let button1 = makeButton(46.8,y:248)
-        let button2 = makeButton(140.6,y:248)
-        let button3 = makeButton(234.4,y:248)
-        let button4 = makeButton(46.8,y:343)
-        let button5 = makeButton(140.6,y:343)
-        
-        button1.setTitle("➗", forState: .Normal)
-        button2.setTitle("✖️", forState: .Normal)
-        button3.setTitle("ー", forState: .Normal)
-        button4.setTitle("＋", forState: .Normal)
-        button5.setTitle("＝", forState: .Normal)
-       
-        
-        self.view.addSubview(button1)
-        self.view.addSubview(button2)
-        self.view.addSubview(button3)
-        self.view.addSubview(button4)
-        self.view.addSubview(button5)
+        if (button.titleLabel!.text! == "C") {
+            myLabel?.text? = ""
+        }
+            
+        else if (button.titleLabel!.text! == "+"){
+            
+            number = (myLabel!.text! as NSString).integerValue
+            
+            myLabel?.text? = ""
+            
+            NSLog("", number)
+   
+        } else {
+            
+            myLabel?.text? += button.titleLabel!.text!
+            
+        }
+        NSLog("",button.titleLabel!.text!)
         
     }
     
-    
-    func makeButton(x: CGFloat,y:CGFloat) -> UIButton {
-        
-        let button = UIButton()
-        
-        //テキストの色
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        
-        //タップした状態のテキスト
-        button.setTitle("メロン肩！", forState: .Highlighted)
-        
-        //タップした状態の色
-        button.setTitleColor(UIColor.blackColor(), forState: .Highlighted)
-        
-        //サイズ
-        button.frame = CGRectMake(0, 0, 94, 95)
-        
-        //配置場所
-        button.layer.position = CGPoint(x:x, y:y)
-        
-        //背景色
-        button.backgroundColor = UIColor(red: 0.84, green: 0.57, blue: 0.26, alpha: 0.6)
-        
-        //角丸
-        button.layer.cornerRadius = 0
-        
-        //ボーダー幅
-        button.layer.borderWidth = 1
-        
-        //ボタンをタップした時に実行するメソッドを指定
-        //button.addTarget(self, action: "tapped:", forControlEvents:.TouchUpInside)
-        
-        //viewにボタンを追加する
-        return button
-        
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
