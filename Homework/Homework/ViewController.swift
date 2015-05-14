@@ -90,7 +90,9 @@ class ViewController: UIViewController {
         button19.frame = CGRectMake(0, 580, 188, 95)
         
     }
-
+    func tapped(button :UIButton){
+        NSLog("tapped")
+    }
     
     func makeButton(title:String, x: CGFloat,y:CGFloat) -> UIButton {
         
@@ -117,15 +119,17 @@ class ViewController: UIViewController {
         //ボーダー幅
         button.layer.borderWidth = 1
         
+        //タップした状態の色
+        button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
+        
         //ボタンをタップした時に実行するメソッドを指定
-        //button.addTarget(self, action: "tapped:", forControlEvents:.TouchUpInside)
+        button.addTarget(self, action: "tapped:", forControlEvents:.TouchUpInside)
         
         //viewにボタンを追加する
         return button
     
     }
-    
-    
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
