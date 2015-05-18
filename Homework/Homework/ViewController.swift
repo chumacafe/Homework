@@ -9,33 +9,44 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    //myLabelを変数定義
+    var myLabel:UILabel?
+
+    //numberを変数定義
+    var number:Int = 0
+    var number1:Int = 0
+    var number2:Int = 0
+    
+    //operateを四則演算覚えておく
+    var operate: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Label（計算結果）を作成.
-        let myLabel: UILabel = UILabel(frame: CGRectMake(0,0,375,202))
+        myLabel = UILabel(frame: CGRectMake(0,0,375,202))
         
         // 背景を黒色にする.
-        myLabel.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+        myLabel?.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
         
         // コーナーの半径.
-        myLabel.layer.cornerRadius = 0
-        
-        // Labelに文字を代入.
-        myLabel.text = "1,230"
-        
+        myLabel?.layer.cornerRadius = 0
+
+        // 文字
+        myLabel?.text = ""
+
         // 文字の色を白にする.
-        myLabel.textColor = UIColor.whiteColor()
+        myLabel?.textColor = UIColor.whiteColor()
         
         // Textを右寄せにする.
-        myLabel.textAlignment = NSTextAlignment.Right
+        myLabel?.textAlignment = NSTextAlignment.Right
         
         // 配置する座標を設定する.
-        myLabel.layer.position = CGPoint(x: self.view.bounds.width/2,y: 101)
+        myLabel?.layer.position = CGPoint(x: self.view.bounds.width/2,y: 101)
         
         // ViewにLabelを追加.
-        self.view.addSubview(myLabel)
+        self.view.addSubview(myLabel!)
         
         
         //グレーボタン19個
@@ -90,9 +101,6 @@ class ViewController: UIViewController {
         button19.frame = CGRectMake(0, 580, 188, 95)
         
     }
-    func tapped(button :UIButton){
-        NSLog("tapped")
-    }
     
     func makeButton(title:String, x: CGFloat,y:CGFloat) -> UIButton {
         
@@ -129,12 +137,93 @@ class ViewController: UIViewController {
         return button
     
     }
+    
+    func tapped(button :UIButton) {
+
+        NSLog("%@", button.titleLabel!.text!)
         
-    override func didReceiveMemoryWarning() {
+        // Cボタンが押された場合の処理
+        if (button.titleLabel!.text! == "C") {
+            
+            // ラベルの文字を消す
+            myLabel!.text = ""
+            
+            // +ボタンが押された場合の処理
+        } else if (button.titleLabel!.text! == "+") {
+            
+            // ラベルの文字列を数値に変換
+            number = (myLabel!.text! as NSString).integerValue
+            
+            // ラベルの文字を消す
+            myLabel?.text? = ""
+            
+            // numberにラベルの文字列が保存されたか確認
+            NSLog("%d", number)
+            
+            //＋を覚えておく
+            operate = "+"
+            
+        } else if (button.titleLabel!.text! == "-") {
+                
+            // ラベルの文字列を数値に変換
+            number1 = (myLabel!.text! as NSString).integerValue
+                
+            // ラベルの文字を消す
+            myLabel?.text? = ""
+                
+            // numberにラベルの文字列が保存されたか確認
+            NSLog("%d", number1)
+            
+            //-を覚えておく
+            operate = "-"
+            
+        // =ボタンが押された場合の処理
+        } else if (button.titleLabel!.text! == "=") {
+            
+            if (operate == "+"){
+            
+            // ラベルの文字列を数値に変換
+            let number2 = (myLabel!.text! as NSString).integerValue
+            
+            // ラベルの文字を消す
+            myLabel?.text? = ""
+            
+            // numberにラベルの文字列が保存されたか確認
+            NSLog("%d", number2)
+            
+            let result = number + number2
+            
+            //ラベルに計算結果を表示
+            myLabel?.text? = String(format: "%d", result)
+                
+            } else if (operate == "-"){
+                    
+                    // ラベルの文字列を数値に変換
+                    let number2 = (myLabel!.text! as NSString).integerValue
+                    
+                    // ラベルの文字を消す
+                    myLabel?.text? = ""
+                    
+                    // numberにラベルの文字列が保存されたか確認
+                    NSLog("%d", number2)
+                    
+                    let result = number1 - number2
+                    
+                    //ラベルに計算結果を表示
+                    myLabel?.text? = String(format: "%d", result)
+                    
+                }
+        
+        }else {
+            
+            // ボタンのタイトルをラベルの文字列に追加
+            myLabel?.text? += button.titleLabel!.text!
+            
+        }
+    
+    }
+        override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        }
     }
-
-
-}
-
