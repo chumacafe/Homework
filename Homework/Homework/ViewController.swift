@@ -16,15 +16,30 @@ class ViewController: UIViewController {
     //numberを変数定義
     var number:Int = 0
     var number1:Int = 0
+    var result:Float = 0
     
     //operateを四則演算覚えておく
     var operate: String = ""
     
+    let transparent : CGFloat = 0.2
+    
+    //↑はこの下全てに反映される
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 画像
+        let image = UIImage(named: "iPhone-6-wallpaper-12")
+        
+        // 画像を表示させるビュー
+        let imageView = UIImageView(image: image)
+        
+        // ビューを画面に追加します
+        self.view.addSubview(imageView)
+        
+        return
+            
         // Label（計算結果）を作成.
-        myLabel = UILabel(frame: CGRectMake(0,0,305,102))
+        myLabel = UILabel(frame: CGRectMake(0,0,374,202))
         
         // 背景を黒色にする.
         myLabel?.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
@@ -89,11 +104,11 @@ class ViewController: UIViewController {
         self.view.addSubview(button19)
         
         //背景色オレンジ
-        button14.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
-        button15.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
-        button16.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
-        button17.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
-        button18.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: 1)
+        button14.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: transparent)
+        button15.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: transparent)
+        button16.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: transparent)
+        button17.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: transparent)
+        button18.backgroundColor = UIColor(red: 213/255, green: 146/255, blue: 66/255, alpha: transparent)
         
         //0ボタンのサイズ
         button19.frame = CGRectMake(0, 580, 188, 95)
@@ -106,6 +121,9 @@ class ViewController: UIViewController {
         
         //表示されるテキスト
         button.setTitle(title, forState: .Normal)
+        
+        //フォントの変更
+        button.titleLabel?.font = UIFont(name: "Optima-ExtraBlack", size: 40)
         
         //テキストの色
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -123,7 +141,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 0
         
         //ボーダー幅
-        button.layer.borderWidth = 1
+        //button.layer.borderWidth = 1
         
         //タップした状態の色
         button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
@@ -191,6 +209,13 @@ class ViewController: UIViewController {
             //×を覚えておく
             operate = "×"
             
+            //÷ボタンが押された場合の処理
+        } else if (button.titleLabel!.text! == "÷"){
+            
+            number = (myLabel!.text! as NSString).integerValue
+            myLabel?.text? = ""
+            operate = "÷"
+        
             // =ボタンが押された場合の処理
         } else if (button.titleLabel!.text! == "=") {
             
@@ -242,6 +267,12 @@ class ViewController: UIViewController {
                 //ラベルに計算結果を表示
                 myLabel?.text? = String(format: "%d", result)
                 
+            } else if (operate == "÷"){
+                
+                let number1 = (myLabel!.text! as NSString).integerValue
+                myLabel?.text? = ""
+                let result = number / number1
+                myLabel?.text? = String(format: "%d", result)
             }
         } else {
             
