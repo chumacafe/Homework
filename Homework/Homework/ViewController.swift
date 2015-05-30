@@ -14,13 +14,14 @@ class ViewController: UIViewController {
     var myLabel:UILabel?
     
     //numberを変数定義
-    var number:Int = 0
-    var number1:Int = 0
+    var number:Float = 0
+    var number1:Float = 0
     var result:Float = 0
     
     //operateを四則演算覚えておく
     var operate: String = ""
     
+    //ボタン透明度
     let transparent : CGFloat = 0.2
     
     //↑はこの下全てに反映される
@@ -35,14 +36,12 @@ class ViewController: UIViewController {
         
         // ビューを画面に追加します
         self.view.addSubview(imageView)
-        
-        return
             
         // Label（計算結果）を作成.
         myLabel = UILabel(frame: CGRectMake(0,0,374,202))
         
         // 背景を黒色にする.
-        myLabel?.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+        myLabel?.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 0.2)
         
         // コーナーの半径.
         myLabel?.layer.cornerRadius = 0
@@ -135,7 +134,7 @@ class ViewController: UIViewController {
         button.layer.position = CGPoint(x:x, y:y)
         
         //背景色
-        button.backgroundColor = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 0.6)
+        //button.backgroundColor = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 0.2)
         
         //角丸
         button.layer.cornerRadius = 0
@@ -165,11 +164,29 @@ class ViewController: UIViewController {
             // ラベルの文字を消す
             myLabel!.text = ""
             
+        } else if (button.titleLabel!.text! == "0") {
+                
+                // ラベルが"0"でなければ足す
+                if myLabel?.text != "0" {
+                    
+                    myLabel?.text? += button.titleLabel!.text!
+                    
+                }
+        } else if (button.titleLabel!.text! == ".") {
+            
+            // ラベルにコンマが含まれていなかったらコンマを足す
+            if myLabel?.text?.rangeOfString(".") == nil {
+                
+                myLabel?.text? += button.titleLabel!.text!
+                
+            }
+            
+        
             // +ボタンが押された場合の処理
         } else if (button.titleLabel!.text! == "+") {
             
             // ラベルの文字列を数値に変換
-            number = (myLabel!.text! as NSString).integerValue
+            number = (myLabel!.text! as NSString).floatValue
             
             // ラベルの文字を消す
             myLabel?.text? = ""
@@ -183,7 +200,7 @@ class ViewController: UIViewController {
         } else if (button.titleLabel!.text! == "-") {
             
             // ラベルの文字列を数値に変換
-            number = (myLabel!.text! as NSString).integerValue
+            number = (myLabel!.text! as NSString).floatValue
             
             // ラベルの文字を消す
             myLabel?.text? = ""
@@ -198,7 +215,7 @@ class ViewController: UIViewController {
         } else if (button.titleLabel!.text! == "×") {
             
             // ラベルの文字列を数値に変換
-            number = (myLabel!.text! as NSString).integerValue
+            number = (myLabel!.text! as NSString).floatValue
             
             // ラベルの文字を消す
             myLabel?.text? = ""
@@ -212,7 +229,7 @@ class ViewController: UIViewController {
             //÷ボタンが押された場合の処理
         } else if (button.titleLabel!.text! == "÷"){
             
-            number = (myLabel!.text! as NSString).integerValue
+            number = (myLabel!.text! as NSString).floatValue
             myLabel?.text? = ""
             operate = "÷"
         
@@ -222,7 +239,7 @@ class ViewController: UIViewController {
             if (operate == "+"){
                 
                 // ラベルの文字列を数値に変換
-                let number1 = (myLabel!.text! as NSString).integerValue
+                let number1 = (myLabel!.text! as NSString).floatValue
                 
                 // ラベルの文字を消す
                 myLabel?.text? = ""
@@ -233,12 +250,12 @@ class ViewController: UIViewController {
                 let result = number + number1
                 
                 //ラベルに計算結果を表示
-                myLabel?.text? = String(format: "%d", result)
+                myLabel?.text? = String(format: "%g", result)
                 
             } else if (operate == "-"){
                 
                 // ラベルの文字列を数値に変換
-                let number1 = (myLabel!.text! as NSString).integerValue
+                let number1 = (myLabel!.text! as NSString).floatValue
                 
                 // ラベルの文字を消す
                 myLabel?.text? = ""
@@ -249,12 +266,12 @@ class ViewController: UIViewController {
                 let result = number - number1
                 
                 //ラベルに計算結果を表示
-                myLabel?.text? = String(format: "%d", result)
+                myLabel?.text? = String(format: "%g", result)
                 
             } else if (operate == "×"){
                 
                 // ラベルの文字列を数値に変換
-                let number1 = (myLabel!.text! as NSString).integerValue
+                let number1 = (myLabel!.text! as NSString).floatValue
                 
                 // ラベルの文字を消す
                 myLabel?.text? = ""
@@ -265,14 +282,14 @@ class ViewController: UIViewController {
                 let result = number * number1
                 
                 //ラベルに計算結果を表示
-                myLabel?.text? = String(format: "%d", result)
+                myLabel?.text? = String(format: "%g", result)
                 
             } else if (operate == "÷"){
                 
-                let number1 = (myLabel!.text! as NSString).integerValue
+                let number1 = (myLabel!.text! as NSString).floatValue
                 myLabel?.text? = ""
                 let result = number / number1
-                myLabel?.text? = String(format: "%d", result)
+                myLabel?.text? = String(format: "%g", result)
             }
         } else {
             
