@@ -24,30 +24,42 @@ class ViewController: UIViewController {
     //ボタン透明度
     let transparent : CGFloat = 0.2
     
+    //画像
+    var imageView:UIImageView?
+    
     //↑はこの下全てに反映される
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 画像
-        let image = UIImage(named: "iPhone-6-wallpaper-12")
+        let image = UIImage(named: "sea")
         
         // 画像を表示させるビュー
         let imageView = UIImageView(image: image)
         
         // ビューを画面に追加します
         self.view.addSubview(imageView)
+        
+        //画面変換ボタン
+        let button = makeButtonForImage(30, y:30)
+        
+        self.view.addSubview(button)
+        
             
         // Label（計算結果）を作成.
         myLabel = UILabel(frame: CGRectMake(0,0,374,202))
         
         // 背景を黒色にする.
-        myLabel?.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 0.2)
+        myLabel?.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: transparent)
         
         // コーナーの半径.
         myLabel?.layer.cornerRadius = 0
         
         // 文字
         myLabel?.text = ""
+        
+        //フォントの変更
+        myLabel!.font = UIFont(name: "Optima-ExtraBlack", size: 40)
         
         // 文字の色を白にする.
         myLabel?.textColor = UIColor.whiteColor()
@@ -113,7 +125,7 @@ class ViewController: UIViewController {
         button19.frame = CGRectMake(0, 580, 188, 95)
         
     }
-    
+    //計算結果表示欄
     func makeButton(title:String, x: CGFloat,y:CGFloat) -> UIButton {
         
         let button = UIButton()
@@ -153,7 +165,107 @@ class ViewController: UIViewController {
         
     }
     
+    func makeButtonToAddView(title:String, x:CGFloat, y:CGFloat) -> UIButton {
+        
+        let button = UIButton()
+        
+        //表示されるテキスト
+        button.setTitle(title, forState: .Normal)
+        
+        //テキストの色
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        
+        //フォントの変更
+        button.titleLabel?.font = UIFont(name: "SavoyeLetPlain", size: 30)
+        
+        //タップした状態のテキスト
+        button.setTitle(title, forState: .Highlighted)
+        
+        //タップした状態の色
+        button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
+        
+        //表示される画像
+        button.setImage(UIImage(named: "bubble"), forState: UIControlState.Normal)
+        
+        //タップした状態で表示される画像
+        button.setImage(UIImage(named: "bubble"), forState: UIControlState.Highlighted)
+        
+        //サイズ
+        button.frame = CGRectMake(0, 0, 94, 94)
+        
+        //配置場所
+        button.layer.position = CGPoint(x:x, y:y)
+        
+        //背景色(透明色)
+        button.backgroundColor = UIColor.clearColor()
+        //            UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: transparent)
+        
+        //角丸
+        button.layer.cornerRadius = 50
+        
+        //ボーダー幅
+        //button.layer.borderWidth = 1
+        
+        //ボタンをタップした時に実行するメソッドを指定
+        button.addTarget(self, action: "tapped:", forControlEvents:.TouchUpInside)
+        
+        //viewにボタンを追加する
+        return button
+    }
     
+        func makeButtonForImage(x:CGFloat, y:CGFloat) -> UIButton {
+            
+            let button = UIButton()
+            
+            //表示されるテキスト
+            button.setTitle("①", forState: .Normal)
+            
+            //テキストの色
+            button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            
+            //フォントの変更
+            button.titleLabel?.font = UIFont(name: "Optima-ExtraBlack", size: 30)
+            
+            //タップした状態のテキスト
+            button.setTitle(title, forState: .Highlighted)
+            
+            //タップした状態の色
+            button.setTitleColor(UIColor.redColor(), forState: .Highlighted)
+            
+            //タップすると画像
+            //button.setImage(UIImage(named: "bubble"), forState: UIControlState.Highlighted)
+            
+            //サイズ
+            button.frame = CGRectMake(0, 0, 90, 60)
+            
+            //配置場所
+            button.layer.position = CGPoint(x:x, y:y)
+            
+            //背景色
+            button.backgroundColor = UIColor.clearColor()
+            
+            //角丸
+            button.layer.cornerRadius = 50
+            
+            //ボーダー幅
+            //button.layer.borderWidth = 1
+            
+            //ボタンをタップした時に実行するメソッドを指定
+            button.addTarget(self, action: "tappedForChangeImage:", forControlEvents:.TouchUpInside)
+            
+            //viewにボタンを追加する
+            return button
+        }
+        
+        
+        func tappedForChangeImage(button :UIButton) {
+            
+            //背景画像を変更する
+            imageView?.image = UIImage(named: "bubble")
+            
+        
+    
+}
     func tapped(button :UIButton) {
         
         NSLog("%@", button.titleLabel!.text!)
@@ -164,22 +276,38 @@ class ViewController: UIViewController {
             // ラベルの文字を消す
             myLabel!.text = ""
             
-        } else if (button.titleLabel!.text! == "0") {
-                
-                // ラベルが"0"でなければ足す
-                if myLabel?.text != "0" {
-                    
-                    myLabel?.text? += button.titleLabel!.text!
-                    
-                }
-        } else if (button.titleLabel!.text! == ".") {
             
-            // ラベルにコンマが含まれていなかったらコンマを足す
-            if myLabel?.text?.rangeOfString(".") == nil {
+        } else if (button.titleLabel!.text! == "0") {
+            
+            if (myLabel?.text != "0") {
                 
-                myLabel?.text? += button.titleLabel!.text!
+                myLabel?.text? += "0"
                 
             }
+            
+        } else if (button.titleLabel!.text! == ".") {
+            
+            // ラベルの長さが0だったら (まだラベルに入力されていない)
+            if (myLabel?.text?.lengthOfBytesUsingEncoding(NSStringEncoding.allZeros) == 0) {
+                
+                myLabel?.text? = "0."
+                
+            }
+                
+                // ラベルのテキストにコンマが含まれていなかったら
+            else if (myLabel?.text?.rangeOfString(".") == nil) {
+                
+                myLabel?.text? += "."
+                
+            }
+            
+        } else if (button.titleLabel!.text! == "%") {
+            
+            let number = (myLabel!.text! as NSString).doubleValue
+            
+            let result = number / 100.0
+            
+            myLabel?.text? = String(format: "%g", result)
             
         
             // +ボタンが押された場合の処理
@@ -192,7 +320,7 @@ class ViewController: UIViewController {
             myLabel?.text? = ""
             
             // numberにラベルの文字列が保存されたか確認
-            NSLog("%d", number)
+            //NSLog("%g", number)
             
             //＋を覚えておく
             operate = "+"
@@ -206,7 +334,7 @@ class ViewController: UIViewController {
             myLabel?.text? = ""
             
             // numberにラベルの文字列が保存されたか確認
-            NSLog("%d", number)
+            NSLog("%g", number)
             
             //-を覚えておく
             operate = "-"
@@ -221,7 +349,7 @@ class ViewController: UIViewController {
             myLabel?.text? = ""
             
             // numberにラベルの文字列が保存されたか確認
-            NSLog("%d", number)
+            NSLog("%g", number)
             
             //×を覚えておく
             operate = "×"
@@ -232,7 +360,15 @@ class ViewController: UIViewController {
             number = (myLabel!.text! as NSString).floatValue
             myLabel?.text? = ""
             operate = "÷"
-        
+            
+            //%ボタンが押された場合の処理
+        } else if (button.titleLabel!.text! == "%"){
+            
+            number = (myLabel!.text! as NSString).floatValue
+            myLabel?.text? = ""
+            operate = "%"
+            
+            
             // =ボタンが押された場合の処理
         } else if (button.titleLabel!.text! == "=") {
             
@@ -245,7 +381,7 @@ class ViewController: UIViewController {
                 myLabel?.text? = ""
                 
                 // numberにラベルの文字列が保存されたか確認
-                //NSLog("%d", number1)
+                //NSLog("%g", number1)
                 
                 let result = number + number1
                 
@@ -261,7 +397,7 @@ class ViewController: UIViewController {
                 myLabel?.text? = ""
                 
                 // numberにラベルの文字列が保存されたか確認
-                NSLog("%d", number1)
+                NSLog("%g", number1)
                 
                 let result = number - number1
                 
@@ -277,12 +413,30 @@ class ViewController: UIViewController {
                 myLabel?.text? = ""
                 
                 // numberにラベルの文字列が保存されたか確認
-                NSLog("%d", number1)
+                NSLog("%g", number1)
                 
                 let result = number * number1
                 
                 //ラベルに計算結果を表示
                 myLabel?.text? = String(format: "%g", result)
+                
+                
+                //%のときの処理
+                if (operate == "%"){
+                // ラベルの文字列を数値に変換
+                let number1 = (myLabel!.text! as NSString).floatValue
+                
+                // ラベルの文字を消す
+                myLabel?.text? = ""
+                
+                // numberにラベルの文字列が保存されたか確認
+                NSLog("%g", number1)
+                
+                let result = number * number1/100
+                
+                //ラベルに計算結果を表示
+                myLabel?.text? = String(format: "%g", result)
+                }
                 
             } else if (operate == "÷"){
                 
@@ -290,6 +444,8 @@ class ViewController: UIViewController {
                 myLabel?.text? = ""
                 let result = number / number1
                 myLabel?.text? = String(format: "%g", result)
+                
+                
             }
         } else {
             
